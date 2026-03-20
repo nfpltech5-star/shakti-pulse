@@ -3,7 +3,7 @@ import { Server, Router, HardDrive, Printer } from "lucide-react"
 const items = [
   {
     title: "Servers",
-    description: "Dokploy-VPS, Dokploy-Internal",
+    description: "Dokploy Servers",
     icon: Server,
     status: "online",
   },
