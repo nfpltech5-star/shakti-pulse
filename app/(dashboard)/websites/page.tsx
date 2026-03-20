@@ -61,7 +61,7 @@ export default function WebsitesPage() {
           Monitor external website availability
         </p>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="columns-1 lg:columns-2 gap-5">
         {sections.map((section) => (
           <MonitorCard
             key={section.title}

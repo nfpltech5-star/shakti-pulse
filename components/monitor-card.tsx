@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { ChevronDown, RotateCw, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -10,6 +10,7 @@ export type SubItem = {
   name: string
   detail?: string
   status: SubItemStatus
+  meta?: { label: string; value: string }[]
 }
 
 type MonitorCardProps = {
@@ -47,9 +48,17 @@ function StatusDot({ status }: { status: SubItemStatus }) {
 export function MonitorCard({ title, description, icon: Icon, items }: MonitorCardProps) {
   const [open, setOpen] = useState(true)
   const [reloading, setReloading] = useState<Record<number, boolean>>({})
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [contentHeight, setContentHeight] = useState<number | undefined>(undefined)
 
   const onlineCount = items.filter((i) => i.status === "online").length
   const offlineCount = items.filter((i) => i.status === "offline").length
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight)
+    }
+  }, [items])
 
   function handleReload(index: number) {
     setReloading((prev) => ({ ...prev, [index]: true }))
@@ -59,7 +68,7 @@ export function MonitorCard({ title, description, icon: Icon, items }: MonitorCa
   }
 
   return (
-    <div className="rounded-lg border border-border bg-card overflow-hidden">
+    <div className="rounded-lg border border-border bg-card overflow-hidden break-inside-avoid mb-5">
       {/* Card Header — clickable to toggle drawer */}
       <button
         type="button"
@@ -95,23 +104,25 @@ export function MonitorCard({ title, description, icon: Icon, items }: MonitorCa
         />
       </button>
 
-      {/* Drawer Content */}
+      {/* Drawer Content — height-based animation */}
       <div
-        className={cn(
-          "grid transition-[grid-template-rows] duration-300 ease-in-out",
-          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        )}
+        ref={contentRef}
+        className="transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden"
+        style={{
+          maxHeight: open ? contentHeight ?? 1000 : 0,
+          opacity: open ? 1 : 0,
+        }}
       >
-        <div className="overflow-hidden">
-          <div className="border-t border-border">
-            {items.map((item, index) => (
-              <div
-                key={item.name}
-                className={cn(
-                  "flex items-center gap-4 px-5 py-3.5",
-                  index < items.length - 1 && "border-b border-border/60"
-                )}
-              >
+        <div className="border-t border-border">
+          {items.map((item, index) => (
+            <div
+              key={item.name}
+              className={cn(
+                "px-5 py-3.5",
+                index < items.length - 1 && "border-b border-border/60"
+              )}
+            >
+              <div className="flex items-center gap-4">
                 {/* Indent line */}
                 <div className="w-10 flex justify-center shrink-0">
                   <div className="w-px h-full bg-border" />
@@ -152,8 +163,20 @@ export function MonitorCard({ title, description, icon: Icon, items }: MonitorCa
                   />
                 </button>
               </div>
-            ))}
-          </div>
+
+              {/* Metadata rows */}
+              {item.meta && item.meta.length > 0 && (
+                <div className="ml-14 mt-2 space-y-1">
+                  {item.meta.map((m) => (
+                    <div key={m.label} className="flex items-center gap-2 text-xs">
+                      <span className="text-muted-foreground">{m.label}:</span>
+                      <span className="text-foreground font-medium">{m.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>

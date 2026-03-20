@@ -83,7 +83,7 @@ export default function InfrastructurePage() {
           Monitor servers, routers, NAS and peripheral devices
         </p>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="columns-1 lg:columns-2 gap-5">
         {infrastructure.map((section) => (
           <MonitorCard
             key={section.title}
