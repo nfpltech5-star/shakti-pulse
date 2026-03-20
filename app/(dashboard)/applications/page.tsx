@@ -1,33 +1,56 @@
-import { Container, BookOpen } from "lucide-react"
+"use client"
 
-const apps = [
+import { Container, BookOpen } from "lucide-react"
+import { MonitorCard } from "@/components/monitor-card"
+
+const sections = [
   {
     title: "n8n",
     description: "Workflow automation platform",
     icon: Container,
-    status: "online",
-    uptime: "99.9%",
+    items: [
+      {
+        name: "n8n Production",
+        detail: "https://n8n.example.com",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "tez",
     description: "Business application",
     icon: Container,
-    status: "online",
-    uptime: "99.8%",
+    items: [
+      {
+        name: "Tez Production",
+        detail: "https://tez.example.com",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "os",
     description: "Operating system services",
     icon: Container,
-    status: "online",
-    uptime: "99.9%",
+    items: [
+      {
+        name: "OS Service",
+        detail: "https://os.example.com",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "trainings",
     description: "Training platform",
     icon: BookOpen,
-    status: "online",
-    uptime: "99.5%",
+    items: [
+      {
+        name: "Training Portal",
+        detail: "https://trainings.example.com",
+        status: "online" as const,
+      },
+    ],
   },
 ]
 
@@ -40,26 +63,15 @@ export default function ApplicationsPage() {
           Monitor application uptime and health
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {apps.map((app) => (
-          <div
-            key={app.title}
-            className="rounded-lg border border-border bg-card p-5 flex items-start gap-4"
-          >
-            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 shrink-0">
-              <app.icon className="size-5 text-primary" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-foreground">{app.title}</h3>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  {app.uptime} uptime
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">{app.description}</p>
-            </div>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {sections.map((section) => (
+          <MonitorCard
+            key={section.title}
+            title={section.title}
+            description={section.description}
+            icon={section.icon}
+            items={section.items}
+          />
         ))}
       </div>
     </div>

@@ -1,26 +1,54 @@
-import { Landmark, Mail } from "lucide-react"
+"use client"
 
-const websites = [
+import { Landmark, Mail } from "lucide-react"
+import { MonitorCard } from "@/components/monitor-card"
+
+const sections = [
   {
     title: "ICE-GATE Portal",
     description: "Indian Customs EDI Gateway",
     icon: Landmark,
-    url: "https://www.icegate.gov.in",
-    status: "online",
+    items: [
+      {
+        name: "ICE-GATE Main Portal",
+        detail: "https://www.icegate.gov.in",
+        status: "online" as const,
+      },
+      {
+        name: "ICE-GATE e-Sanchit",
+        detail: "https://esanchit.icegate.gov.in",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "CBIC Portal",
     description: "Central Board of Indirect Taxes and Customs",
     icon: Landmark,
-    url: "https://www.cbic.gov.in",
-    status: "online",
+    items: [
+      {
+        name: "CBIC Main Portal",
+        detail: "https://www.cbic.gov.in",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "Zoho",
     description: "Business management suite",
     icon: Mail,
-    url: "https://www.zoho.com",
-    status: "online",
+    items: [
+      {
+        name: "Zoho Mail",
+        detail: "https://mail.zoho.in",
+        status: "online" as const,
+      },
+      {
+        name: "Zoho CRM",
+        detail: "https://crm.zoho.in",
+        status: "online" as const,
+      },
+    ],
   },
 ]
 
@@ -33,27 +61,15 @@ export default function WebsitesPage() {
           Monitor external website availability
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {websites.map((site) => (
-          <div
-            key={site.title}
-            className="rounded-lg border border-border bg-card p-5 flex flex-col gap-4"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
-                <site.icon className="size-5 text-primary" />
-              </div>
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                Online
-              </span>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">{site.title}</h3>
-              <p className="text-xs text-muted-foreground mt-1">{site.description}</p>
-              <p className="text-xs text-primary mt-2 truncate">{site.url}</p>
-            </div>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {sections.map((section) => (
+          <MonitorCard
+            key={section.title}
+            title={section.title}
+            description={section.description}
+            icon={section.icon}
+            items={section.items}
+          />
         ))}
       </div>
     </div>

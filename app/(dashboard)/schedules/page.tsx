@@ -1,33 +1,66 @@
-import { Ship, Plane, FileText, Bell } from "lucide-react"
+"use client"
 
-const schedules = [
+import { Ship, Plane, FileText, Bell } from "lucide-react"
+import { MonitorCard } from "@/components/monitor-card"
+
+const sections = [
   {
     title: "ETA Tracking (SEA)",
     description: "Sea shipment ETA monitoring",
     icon: Ship,
-    status: "active",
-    nextRun: "Every 6 hours",
+    items: [
+      {
+        name: "MSC Tracker",
+        detail: "Runs every 6 hours",
+        status: "online" as const,
+      },
+      {
+        name: "Maersk Tracker",
+        detail: "Runs every 6 hours",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "ETA Tracking (AIR)",
     description: "Air shipment ETA monitoring",
     icon: Plane,
-    status: "active",
-    nextRun: "Every 4 hours",
+    items: [
+      {
+        name: "Air Cargo Tracker",
+        detail: "Runs every 4 hours",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "AMAX PD Bond Tracker",
     description: "PD Bond status tracking",
     icon: FileText,
-    status: "paused",
-    nextRun: "Paused",
+    items: [
+      {
+        name: "Bond Status Monitor",
+        detail: "Runs daily at 9:00 AM",
+        status: "offline" as const,
+      },
+    ],
   },
   {
     title: "CBIC Notification",
     description: "CBIC circular notifications",
     icon: Bell,
-    status: "active",
-    nextRun: "Every 12 hours",
+    items: [
+      {
+        name: "Circular Monitor",
+        detail: "Runs every 12 hours",
+        status: "online" as const,
+      },
+      {
+        name: "Notification Sender",
+        detail: "Triggers on new circular",
+        status: "online" as const,
+      },
+    ],
   },
 ]
 
@@ -40,40 +73,15 @@ export default function SchedulesPage() {
           Monitor scheduled tasks and automated trackers
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {schedules.map((schedule) => (
-          <div
-            key={schedule.title}
-            className="rounded-lg border border-border bg-card p-5 flex items-start gap-4"
-          >
-            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 shrink-0">
-              <schedule.icon className="size-5 text-primary" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-foreground">{schedule.title}</h3>
-                <span
-                  className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${
-                    schedule.status === "active"
-                      ? "bg-emerald-100 text-emerald-700"
-                      : "bg-gray-100 text-gray-600"
-                  }`}
-                >
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      schedule.status === "active" ? "bg-emerald-500" : "bg-gray-400"
-                    }`}
-                  />
-                  {schedule.status === "active" ? "Active" : "Paused"}
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">{schedule.description}</p>
-              <p className="text-xs text-muted-foreground mt-2">
-                <span className="text-foreground font-medium">Interval:</span>{" "}
-                {schedule.nextRun}
-              </p>
-            </div>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {sections.map((section) => (
+          <MonitorCard
+            key={section.title}
+            title={section.title}
+            description={section.description}
+            icon={section.icon}
+            items={section.items}
+          />
         ))}
       </div>
     </div>

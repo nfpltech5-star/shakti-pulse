@@ -1,29 +1,76 @@
-import { Server, Router, HardDrive, Printer } from "lucide-react"
+"use client"
 
-const items = [
+import { Server, Router, HardDrive, Printer } from "lucide-react"
+import { MonitorCard, type SubItem } from "@/components/monitor-card"
+
+const infrastructure = [
   {
     title: "Servers",
-    description: "Dokploy Servers",
+    description: "Dokploy-VPS, Dokploy-Internal",
     icon: Server,
-    status: "online",
+    items: [
+      {
+        name: "Hyper-V Debian",
+        detail: "192.168.1.6",
+        status: "online" as const,
+      },
+      {
+        name: "Hostinger VPS",
+        detail: "122.332.344.223",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "Routers",
     description: "Network routing devices",
     icon: Router,
-    status: "online",
+    items: [
+      {
+        name: "Main Router",
+        detail: "192.168.1.1",
+        status: "online" as const,
+      },
+      {
+        name: "AP Router",
+        detail: "192.168.1.2",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "NAS",
     description: "Network Attached Storage",
     icon: HardDrive,
-    status: "online",
+    items: [
+      {
+        name: "Synology NAS",
+        detail: "192.168.1.10",
+        status: "online" as const,
+      },
+    ],
   },
   {
     title: "Other Devices",
     description: "e-SSL, Printers, Scanners",
     icon: Printer,
-    status: "warning",
+    items: [
+      {
+        name: "e-SSL Biometric",
+        detail: "192.168.1.20",
+        status: "online" as const,
+      },
+      {
+        name: "HP LaserJet Printer",
+        detail: "192.168.1.30",
+        status: "offline" as const,
+      },
+      {
+        name: "Canon Scanner",
+        detail: "192.168.1.31",
+        status: "online" as const,
+      },
+    ],
   },
 ]
 
@@ -36,36 +83,15 @@ export default function InfrastructurePage() {
           Monitor servers, routers, NAS and peripheral devices
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {items.map((item) => (
-          <div
-            key={item.title}
-            className="rounded-lg border border-border bg-card p-5 flex items-start gap-4"
-          >
-            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 shrink-0">
-              <item.icon className="size-5 text-primary" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-foreground">{item.title}</h3>
-                <span
-                  className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${
-                    item.status === "online"
-                      ? "bg-emerald-100 text-emerald-700"
-                      : "bg-amber-100 text-amber-700"
-                  }`}
-                >
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      item.status === "online" ? "bg-emerald-500" : "bg-amber-500"
-                    }`}
-                  />
-                  {item.status === "online" ? "Online" : "Warning"}
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">{item.description}</p>
-            </div>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {infrastructure.map((section) => (
+          <MonitorCard
+            key={section.title}
+            title={section.title}
+            description={section.description}
+            icon={section.icon}
+            items={section.items}
+          />
         ))}
       </div>
     </div>

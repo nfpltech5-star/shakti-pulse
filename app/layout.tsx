@@ -4,7 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip"
 
-const roboto = Roboto({subsets:['latin'],variable:'--font-sans'});
+const roboto = Roboto({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shakti Pulse | Nagarkot Forwarders Pvt Ltd.",
+  title: "Nagarkot Pulse | Nagarkot Forwarders Pvt Ltd.",
   description: "Uptime and schedules monitoring platform",
 };
 

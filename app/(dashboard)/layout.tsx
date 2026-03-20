@@ -24,7 +24,7 @@ export default function DashboardLayout({
             <SidebarTrigger className="-ml-2" />
             <Separator orientation="vertical" className="h-5" />
             <h1 className="text-lg font-bold text-primary tracking-tight">
-              Shakti Pulse
+              Nagarkot Pulse
             </h1>
           </header>
 

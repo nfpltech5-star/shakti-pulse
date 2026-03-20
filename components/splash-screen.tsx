@@ -35,9 +35,8 @@ export function SplashScreen({ children }: { children: React.ReactNode }) {
     <>
       {visible && (
         <div
-          className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-background transition-opacity duration-400 ${
-            fadeOut ? "opacity-0" : "opacity-100"
-          }`}
+          className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-background transition-opacity duration-400 ${fadeOut ? "opacity-0" : "opacity-100"
+            }`}
         >
           {/* Logo */}
           <div className="mb-8 animate-fade-in">
@@ -50,11 +49,6 @@ export function SplashScreen({ children }: { children: React.ReactNode }) {
               priority
             />
           </div>
-
-          {/* App Name */}
-          <h1 className="text-xl font-bold text-primary mb-10 animate-fade-in-delay tracking-tight">
-            Shakti Pulse
-          </h1>
 
           {/* Progress Bar */}
           <div className="w-56 h-[3px] bg-border rounded-full overflow-hidden">
